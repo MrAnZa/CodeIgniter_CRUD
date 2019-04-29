@@ -57,6 +57,11 @@ class PersonasC extends CI_Controller{
 		redirect('/PersonasC/listado');
 	}
 
+	public function borrar_ajax($persona_id=null){
+		$this->PersonaModel->delete($persona_id);
+		echo 1;
+	}
+
 	public function ver($persona_id=null){
 		
 		if(!isset($persona_id)){
