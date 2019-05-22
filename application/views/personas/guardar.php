@@ -11,7 +11,7 @@
 		<a href="<?php echo base_url(); ?>PersonasC/listado" class="btn btn-warning">Volver</a>
 		<br><br>
 		<?php echo validation_errors(); ?>
-	 <?php echo form_open('') ?>
+	 <?php echo form_open_multipart(''); ?>
 	 	<div class="form-group">
 	 		<?php 
 	 			echo form_label('Nombre','nombre');
@@ -33,6 +33,14 @@
 	 				'name' => 'edad',
 	 				'type'=>'number',
 	 				'value' => $edad,
+	 				'class' => 'form-control input-lg');
+	 			echo form_input($input);
+
+	 			echo form_label('Imagen','image');
+	 			$input = array(
+	 				'name' => 'image',
+	 				'type'=>'file',
+	 				'value' => '',
 	 				'class' => 'form-control input-lg');
 	 			echo form_input($input);
 	 		?>

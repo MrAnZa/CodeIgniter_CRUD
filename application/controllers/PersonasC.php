@@ -41,13 +41,15 @@ class PersonasC extends CI_Controller{
 			$data["apellido"]=	$this->input->post("apellido");		
 			$data["edad"]=$this->input->post("edad");
 			if($this->form_validation->run()){
-			if(isset($persona_id)){
-				$this->PersonaModel->update($persona_id,$data);
-			}else{
-				$this->PersonaModel->insert($data);
+				if(isset($persona_id)){
+					$this->PersonaModel->update($persona_id,$data);
+				}else{
+					$persona_id=$this->PersonaModel->insert($data);
+				}
+				$this->do_upload();
+				redirect("/PersonasC/guardar/$persona_id");
 			}
-			}
-		}
+		}		
 				$this->load->view('personas/guardar',$vdata);
 
 	}
@@ -84,5 +86,29 @@ class PersonasC extends CI_Controller{
 		}
 		$this->load->view('personas/ver',$vdata);
 	}
+
+	 private function do_upload()
+        {
+                $config['upload_path']          = './uploads/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 2048;
+                $config['max_width']            = 1024;
+                $config['max_height']           = 768;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('image'))
+                {
+                        $error = array('error' => $this->upload->display_errors());
+
+                        var_dump($error);
+                }
+                else
+                {
+                       
+
+                        var_dump($data);
+                }
+        }
 }
 ?>
