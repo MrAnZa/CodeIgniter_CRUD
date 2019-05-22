@@ -25,7 +25,7 @@ class PersonasC extends CI_Controller{
 		$this->form_validation->set_rules('apellido','Apellido','required');
 		$this->form_validation->set_rules('edad','Edad','required');
 
-		$vdata["nombre"]=$vdata["apellido"]=$vdata["edad"]="";
+		$vdata["nombre"]=$vdata["apellido"]=$vdata["edad"]=$vdata["error"]="";
 			if(isset($persona_id)){
 				$persona= $this->PersonaModel->find($persona_id);
 
@@ -46,8 +46,12 @@ class PersonasC extends CI_Controller{
 				}else{
 					$persona_id=$this->PersonaModel->insert($data);
 				}
-				$this->do_upload($persona_id);
-				redirect("/PersonasC/guardar/$persona_id");
+					$error = $this->do_upload($persona_id);
+					if($error == ""){
+						redirect("/PersonasC/guardar/$persona_id");
+					}else{
+						$vdata["error"]=$error;
+					}
 			}
 		}		
 				$this->load->view('personas/guardar',$vdata);
@@ -99,17 +103,17 @@ class PersonasC extends CI_Controller{
 
                 if ( ! $this->upload->do_upload('image'))
                 {
-                        $error = array('error' => $this->upload->display_errors());
-
-                        var_dump($error);
+                        return $this->upload->display_errors();
                 }
                 else
                 {
                        $data= $this->upload->data();
                        $name=$data['file_name'];
                        $save= array('image' => $name);
+
+                       $this->PersonaModel->update($persona_id,$save);
                 }
-                $this->PersonaModel->update($persona_id,$save);
+                return "";
         }
 }
 ?>
