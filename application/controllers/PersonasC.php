@@ -46,7 +46,7 @@ class PersonasC extends CI_Controller{
 				}else{
 					$persona_id=$this->PersonaModel->insert($data);
 				}
-				$this->do_upload();
+				$this->do_upload($persona_id);
 				redirect("/PersonasC/guardar/$persona_id");
 			}
 		}		
@@ -87,9 +87,9 @@ class PersonasC extends CI_Controller{
 		$this->load->view('personas/ver',$vdata);
 	}
 
-	 private function do_upload()
+	 private function do_upload($persona_id)
         {
-                $config['upload_path']          = './uploads/';
+                $config['upload_path']          = 'uploads';
                 $config['allowed_types']        = 'gif|jpg|png';
                 $config['max_size']             = 2048;
                 $config['max_width']            = 1024;
@@ -105,10 +105,11 @@ class PersonasC extends CI_Controller{
                 }
                 else
                 {
-                       
-
-                        var_dump($data);
+                       $data= $this->upload->data();
+                       $name=$data['file_name'];
+                       $save= array('image' => $name);
                 }
+                $this->PersonaModel->update($persona_id,$save);
         }
 }
 ?>
