@@ -25,7 +25,7 @@ class PersonasC extends CI_Controller{
 		$this->form_validation->set_rules('apellido','Apellido','required');
 		$this->form_validation->set_rules('edad','Edad','required');
 
-		$vdata["nombre"]=$vdata["apellido"]=$vdata["edad"]=$vdata["error"]="";
+		$vdata["nombre"]=$vdata["apellido"]=$vdata["edad"]=$vdata["error"]=$vdata["image"]="";
 			if(isset($persona_id)){
 				$persona= $this->PersonaModel->find($persona_id);
 
@@ -33,6 +33,7 @@ class PersonasC extends CI_Controller{
 					$vdata["nombre"]=$persona->nombre;
 					$vdata["apellido"]=$persona->apellido;
 					$vdata["edad"]=$persona->edad;
+					$vdata["image"]=$persona->image;
 				}
 			}
 

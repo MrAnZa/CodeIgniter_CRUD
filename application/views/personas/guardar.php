@@ -3,6 +3,14 @@
  <html>
  <head>
  	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+ 	<style>
+ 		.img-small{
+ 			width: 180px;
+ 			display: block;
+ 			border: 1px solid #CCC;
+ 			margin: 4px 0;
+ 		}
+ 	</style>
  	<title>Personas</title>
  </head>
 <body>
@@ -55,6 +63,9 @@
 	 			echo form_input($input);
 	 		?>
 	 	</div>
+	 	<?php if($image != ""): ?>
+		<img src="<?php echo base_url() ?>uploads/<?php echo $image ?>" alt="" class="img-small">
+	 	<?php endif; ?>
 	 	<?php echo form_submit('mysubmit','Enviar',"class='btn btn-primary'") ?>
 	 <?php echo form_close() ?>
 	 </div>
